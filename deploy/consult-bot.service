@@ -1,0 +1,21 @@
+[Unit]
+Description=Consult bot: AI assistant for VKontakte and Telegram
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=mylab
+Group=mylab
+WorkingDirectory=/home/mylab/apps/consult-bot
+# Secrets are read from the same protected file as the other projects.
+EnvironmentFile=/home/mylab/Myfreelab/.env
+ExecStart=/home/mylab/apps/consult-bot/.venv/bin/python -m app.main
+Restart=always
+RestartSec=5
+# The server has 1.8 GB of RAM: keep the bot from ever starving the websites.
+MemoryMax=300M
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
